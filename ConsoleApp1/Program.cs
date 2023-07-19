@@ -14,14 +14,12 @@ namespace SoloLearn
 {
     class Program
     {
-        static void Main(string[] args)
+        public static Task Main(string[] args) => new Program().MainAsync();
+
+        public async Task MainAsync()
         {
             try
             {
-                while (true)
-                {
-                    PrintMenu();
-                }
 
             }
             catch (Exception ex)
@@ -29,6 +27,12 @@ namespace SoloLearn
                 Console.WriteLine(ex.ToString());
                 Console.ReadKey();
             }
+        }
+
+        private Task Log(LogMessage msg)
+        {
+            Console.WriteLine(msg.ToString());
+            return Task.CompletedTask;
         }
 
         public static void PrintMenu()
