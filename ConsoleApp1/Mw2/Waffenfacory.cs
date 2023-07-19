@@ -17,38 +17,102 @@ namespace ConsoleApp1.Mw2
         public Waffenfacory(Aufsatzfactory af)
         {
             // Sturmgewehre
-            Sturmgewehre m4a1 = new Sturmgewehre("M4A1", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Sturmgewehre famas = new Sturmgewehre("Famas", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Sturmgewehre scar = new Sturmgewehre("Scar-H", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Sturmgewehre tar = new Sturmgewehre("TAR-21", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Sturmgewehre fal = new Sturmgewehre("FAL", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Sturmgewehre m16a4 = new Sturmgewehre("M16A4", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Sturmgewehre acr = new Sturmgewehre("ACR", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Sturmgewehre f2000 = new Sturmgewehre("F2000", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Sturmgewehre ak47 = new Sturmgewehre("AK47", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
+            Sturmgewehre m4a1 = new Sturmgewehre("M4A1", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", 
+                //"Herzschlagsensor", 
+                //"Thermal", 
+                "Erweiterte Magazine" }));
+            Sturmgewehre famas = new Sturmgewehre("Famas", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier",
+                //"Herzschlagsensor", 
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Sturmgewehre scar = new Sturmgewehre("Scar-H", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier",
+                //"Herzschlagsensor", 
+                //"Thermal", 
+                "Erweiterte Magazine" }));
+            Sturmgewehre tar = new Sturmgewehre("TAR-21", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier",
+                //"Herzschlagsensor", 
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Sturmgewehre fal = new Sturmgewehre("FAL", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", 
+                //"Herzschlagsensor", 
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Sturmgewehre m16a4 = new Sturmgewehre("M16A4", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier",
+                //"Herzschlagsensor",
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Sturmgewehre acr = new Sturmgewehre("ACR", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier", 
+                //"Herzschlagsensor", 
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Sturmgewehre f2000 = new Sturmgewehre("F2000", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier",
+                //"Herzschlagsensor",
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Sturmgewehre ak47 = new Sturmgewehre("AK47", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Schrotflinte", "Holographisches Visier",
+                //"Herzschlagsensor", 
+                //"Thermal",
+                "Erweiterte Magazine" }));
             Sturmgewehre ak47c = new Sturmgewehre("AK47-Classic", af.Get_Aufsatz_By_Name(new[] { "Granatenwerfer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Erweiterte Magazine" }));
 
             // Primäre Maschinenpistole
-            Prim_Maschinenpistole mp5k = new Prim_Maschinenpistole("MP5K", af.Get_Aufsatz_By_Name(new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Thermal", "Erweiterte Magazine" }));
-            Prim_Maschinenpistole ump45 = new Prim_Maschinenpistole("UMP45", af.Get_Aufsatz_By_Name(new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Thermal", "Erweiterte Magazine" }));
-            Prim_Maschinenpistole vector = new Prim_Maschinenpistole("Vector", af.Get_Aufsatz_By_Name(new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Thermal", "Erweiterte Magazine" }));
-            Prim_Maschinenpistole p90 = new Prim_Maschinenpistole("P90", af.Get_Aufsatz_By_Name(new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Thermal", "Erweiterte Magazine" }));
-            Prim_Maschinenpistole miniuzi = new Prim_Maschinenpistole("Mini-Uzi", af.Get_Aufsatz_By_Name(new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Thermal", "Erweiterte Magazine" }));
+            Prim_Maschinenpistole mp5k = new Prim_Maschinenpistole("MP5K", af.Get_Aufsatz_By_Name(new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", 
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Prim_Maschinenpistole ump45 = new Prim_Maschinenpistole("UMP45", af.Get_Aufsatz_By_Name(new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", 
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Prim_Maschinenpistole vector = new Prim_Maschinenpistole("Vector", af.Get_Aufsatz_By_Name(new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier",
+                //"Thermal", 
+                "Erweiterte Magazine" }));
+            Prim_Maschinenpistole p90 = new Prim_Maschinenpistole("P90", af.Get_Aufsatz_By_Name(new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", 
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Prim_Maschinenpistole miniuzi = new Prim_Maschinenpistole("Mini-Uzi", af.Get_Aufsatz_By_Name(new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", 
+                //"Thermal", 
+                "Erweiterte Magazine" }));
             Prim_Maschinenpistole ak47u = new Prim_Maschinenpistole("AK47U", af.Get_Aufsatz_By_Name(new[] { "ACOG-Zielfernrohr", "Erweiterte Magazine" }));
             Prim_Maschinenpistole peacekeeper = new Prim_Maschinenpistole("Peacekeeper");
 
             // Leichte MGS
-            LeichteMgs l86LSW = new LeichteMgs("L86 LSW", af.Get_Aufsatz_By_Name(new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            LeichteMgs rpd = new LeichteMgs("RPD", af.Get_Aufsatz_By_Name(new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            LeichteMgs mg4 = new LeichteMgs("MG4", af.Get_Aufsatz_By_Name(new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            LeichteMgs aug = new LeichteMgs("AUG HBAR", af.Get_Aufsatz_By_Name(new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            LeichteMgs m240 = new LeichteMgs("L86 LSW", af.Get_Aufsatz_By_Name(new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
+            LeichteMgs l86LSW = new LeichteMgs("L86 LSW", af.Get_Aufsatz_By_Name(new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier",
+                //"Herzschlagsensor",
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            LeichteMgs rpd = new LeichteMgs("RPD", af.Get_Aufsatz_By_Name(new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier",
+                //"Herzschlagsensor",
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            LeichteMgs mg4 = new LeichteMgs("MG4", af.Get_Aufsatz_By_Name(new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier", 
+                //"Herzschlagsensor", 
+                //"Thermal", 
+                "Erweiterte Magazine" }));
+            LeichteMgs aug = new LeichteMgs("AUG HBAR", af.Get_Aufsatz_By_Name(new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier",
+                //"Herzschlagsensor",
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            LeichteMgs m240 = new LeichteMgs("L86 LSW", af.Get_Aufsatz_By_Name(new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier",
+                //"Herzschlagsensor",
+                //"Thermal",
+                "Erweiterte Magazine" }));
 
             // Scharfschützengewehr
-            Scharfschützengewehr intervention = new Scharfschützengewehr("Intervention", af.Get_Aufsatz_By_Name(new[] { "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Scharfschützengewehr barrett = new Scharfschützengewehr("Barrett KAL. .50", af.Get_Aufsatz_By_Name(new[] { "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Scharfschützengewehr wa2000 = new Scharfschützengewehr("WA2000", af.Get_Aufsatz_By_Name(new[] { "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
-            Scharfschützengewehr m21ebr = new Scharfschützengewehr("M21EBR", af.Get_Aufsatz_By_Name(new[] { "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" }));
+            Scharfschützengewehr intervention = new Scharfschützengewehr("Intervention", af.Get_Aufsatz_By_Name(new[] { "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss",
+                //"Herzschlagsensor",
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Scharfschützengewehr barrett = new Scharfschützengewehr("Barrett KAL. .50", af.Get_Aufsatz_By_Name(new[] { "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss",
+                //"Herzschlagsensor",
+                //"Thermal",
+                "Erweiterte Magazine" }));
+            Scharfschützengewehr wa2000 = new Scharfschützengewehr("WA2000", af.Get_Aufsatz_By_Name(new[] { "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", 
+                //"Herzschlagsensor",
+                //"Thermal", 
+                "Erweiterte Magazine" }));
+            Scharfschützengewehr m21ebr = new Scharfschützengewehr("M21EBR", af.Get_Aufsatz_By_Name(new[] { "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss",
+                //"Herzschlagsensor",
+                //"Thermal",
+                "Erweiterte Magazine" }));
             Scharfschützengewehr m40A3 = new Scharfschützengewehr("M40A3");
             Scharfschützengewehr dragunow = new Scharfschützengewehr("Dragunow");
 
@@ -92,7 +156,13 @@ namespace ConsoleApp1.Mw2
 
 
             //Sekundäre Maschinenpistolen
-            Sec_Maschinenpistole pp2000 = new Sec_Maschinenpistole("PP2000", af.Get_Aufsatz_By_Name(new[] { "Rotpunktvisier", "Schalldämpfer", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Erweiterte Magazine" }));
+            Sec_Maschinenpistole pp2000 = new Sec_Maschinenpistole("PP2000", af.Get_Aufsatz_By_Name(new[] { 
+                "Rotpunktvisier", 
+                "Schalldämpfer", 
+                "Vollmantelgeschoss", 
+                "Akimbo", 
+                "Holographisches Visier", 
+                "Erweiterte Magazine" }));
             Sec_Maschinenpistole g18 = new Sec_Maschinenpistole("G18", af.Get_Aufsatz_By_Name(new[] { "Rotpunktvisier", "Schalldämpfer", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Erweiterte Magazine" }));
             Sec_Maschinenpistole m93Raffica = new Sec_Maschinenpistole("M93 Raffica", af.Get_Aufsatz_By_Name(new[] { "Rotpunktvisier", "Schalldämpfer", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Erweiterte Magazine" }));
             Sec_Maschinenpistole tmp = new Sec_Maschinenpistole("TMP", af.Get_Aufsatz_By_Name(new[] { "Rotpunktvisier", "Schalldämpfer", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Erweiterte Magazine" }));
@@ -108,7 +178,7 @@ namespace ConsoleApp1.Mw2
             Schrotflinte spas = new Schrotflinte("SPAS-12", af.Get_Aufsatz_By_Name(new[] { "Rotpunktvisier", "Schalldämpfer", "Griff", "Vollmantelgeschoss", "Holographisches Visier", "Erweiterte Magazine" }));
             Schrotflinte aa12 = new Schrotflinte("AA-12", af.Get_Aufsatz_By_Name(new[] { "Rotpunktvisier", "Schalldämpfer", "Griff", "Vollmantelgeschoss", "Holographisches Visier", "Erweiterte Magazine" }));
             Schrotflinte striker = new Schrotflinte("Striker", af.Get_Aufsatz_By_Name(new[] { "Rotpunktvisier", "Schalldämpfer", "Griff", "Vollmantelgeschoss", "Holographisches Visier", "Erweiterte Magazine" }));
-            Schrotflinte ranger = new Schrotflinte("Ranger", af.Get_Aufsatz_By_Name(new[] { "Akimbo", "Vollmantelgeschoss" }));
+            //Schrotflinte ranger = new Schrotflinte("Ranger", af.Get_Aufsatz_By_Name(new[] { "Akimbo", "Vollmantelgeschoss" }));
             Schrotflinte m1014 = new Schrotflinte("M1014", af.Get_Aufsatz_By_Name(new[] { "Rotpunktvisier", "Schalldämpfer", "Griff", "Vollmantelgeschoss", "Holographisches Visier", "Erweiterte Magazine" }));
             Schrotflinte modell1887 = new Schrotflinte("Modell 1887", af.Get_Aufsatz_By_Name(new[] { "Akimbo", "Vollmantelgeschoss" }));
 
@@ -132,13 +202,14 @@ namespace ConsoleApp1.Mw2
             this.secondary_Waffen_Liste.Add(spas);
             this.secondary_Waffen_Liste.Add(aa12);
             this.secondary_Waffen_Liste.Add(striker);
-            this.secondary_Waffen_Liste.Add(ranger);
+            //this.secondary_Waffen_Liste.Add(ranger);
             this.secondary_Waffen_Liste.Add(m1014);
             this.secondary_Waffen_Liste.Add(at4);
             this.secondary_Waffen_Liste.Add(thum);
             this.secondary_Waffen_Liste.Add(sting);
             this.secondary_Waffen_Liste.Add(jav);
             this.secondary_Waffen_Liste.Add(rak);
+            this.secondary_Waffen_Liste.Add(modell1887);
         }
 
         public Waffe Primary()

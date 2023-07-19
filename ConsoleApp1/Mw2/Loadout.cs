@@ -110,5 +110,11 @@ namespace ConsoleApp1.Mw2
             }
         }
         public Perks Perks { get => perks; set => perks = value; }
+        public Perks Perks1 { get => perks; set => perks = value; }
+        internal Ausrüstung Ausrüstung { get => ausrüstung; set => ausrüstung = value; }
+        internal Spezialgranate Spezialgranate { get => spezialgranate; set => spezialgranate = value; }
+        internal Todesserie Todesserie { get => todesserie; set => todesserie = value; }
+        public Waffe Secondary_waffe { get => secondary_waffe; set => secondary_waffe = value; }
+        public Waffe Primary_waffe { get => primary_waffe; set => primary_waffe = value; }
     }
 }

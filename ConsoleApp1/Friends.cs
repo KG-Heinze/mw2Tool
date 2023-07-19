@@ -9,6 +9,7 @@ namespace ConsoleApp1
     public class Friends
     {
         private String Name = "";
+        private ulong discordId = 0;
         private int Hp;
         private int Attack;
         private int Speed;
