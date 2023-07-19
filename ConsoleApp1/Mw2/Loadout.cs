@@ -19,6 +19,8 @@ namespace ConsoleApp1.Mw2
         {
             Waffenfacory wf = new Waffenfacory();
 
+            Aufsatzfactory af = new Aufsatzfactory();
+
             //stressTest(wf);
 
             this.Perks = new Perks();
@@ -39,7 +41,8 @@ namespace ConsoleApp1.Mw2
                 Console.Write("Primary: " + this.primary_waffe.Name);
                 if (this.primary_waffe.getRandomAufsatz() != null && this.primary_waffe.getRandomAufsatz() != "")
                 {
-                    Console.Write(" | Aufsatz: " + this.primary_waffe.getRandomAufsatz());
+                    String first_Aufsatz = this.primary_waffe.getRandomAufsatz();
+                    Console.Write(" | Aufsatz: " + first_Aufsatz " + " + this.primary_waffe.getRandomAufsatz(first_Aufsatz));
                 }
                 Console.WriteLine(" ");
                 Console.WriteLine(" ");

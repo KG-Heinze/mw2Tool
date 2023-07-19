@@ -35,7 +35,7 @@ namespace ConsoleApp1.Mw2
             Prim_Maschinenpistole p90 = new Prim_Maschinenpistole("P90", new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Thermal", "Erweiterte Magazine" });
             Prim_Maschinenpistole miniuzi = new Prim_Maschinenpistole("Mini-Uzi", new[] { "Schnellfeuer", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Akimbo", "Holographisches Visier", "Thermal", "Erweiterte Magazine" });
             Prim_Maschinenpistole ak47u = new Prim_Maschinenpistole("AK47U", new[] { "ACOG-Zielfernrohr", "Erweiterte Magazine" });
-            Prim_Maschinenpistole peacekeeper = new Prim_Maschinenpistole("Peackeeper" );
+            Prim_Maschinenpistole peacekeeper = new Prim_Maschinenpistole("Peacekeeper" );
 
             // Leichte MGS
             LeichteMgs l86LSW = new LeichteMgs("L86 LSW", new[] { "Griff", "Rotpunktvisier", "Schalldämpfer", "ACOG-Zielfernrohr", "Vollmantelgeschoss", "Holographisches Visier", "Herzschlagsensor", "Thermal", "Erweiterte Magazine" });

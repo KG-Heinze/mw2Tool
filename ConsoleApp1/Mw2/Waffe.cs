@@ -47,6 +47,18 @@ namespace ConsoleApp1.Mw2
             return "";
         }
 
+        public String getRandomAufsatz(String aufsatz)
+        {
+            if (this.aufsätze != null)
+            {
+                int size = this.aufsätze.Count();
+
+                return this.aufsätze[StaticRandom.Instance.Next(0, size - 1)].Where<Aufsatz>(!); ;
+            }
+            return "";
+        }
+
+
 
         public string Waffenkategorie { get => waffenkategorie; set => waffenkategorie = value; }
         public string Name { get => name; set => name = value; }

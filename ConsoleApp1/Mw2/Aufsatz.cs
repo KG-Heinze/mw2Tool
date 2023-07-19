@@ -10,18 +10,19 @@ namespace ConsoleApp1.Mw2
     class Aufsatz
     {
         private String name = null;
-        private Aufsatztyp typ = null;
+        private String typ = null;
+
         public Aufsatz()
         {
 
         }
-        public Aufsatz(String name, Aufsatztyp typ)
+        public Aufsatz(String name, String typ)
         {
             this.name = name;
             this.typ = typ;
         }
 
-        public string Name { get => name; set => name = value; }
-        internal Aufsatztyp Typ { get => typ; set => typ = value; }
+        public String Name { get => name; set => name = value; }
+        public String Typ { get => typ; set => typ = value; }
     }
 }
