@@ -17,10 +17,9 @@ namespace ConsoleApp1.Mw2
 
         public Loadout()
         {
-            Waffenfacory wf = new Waffenfacory();
-
             Aufsatzfactory af = new Aufsatzfactory();
 
+            Waffenfacory wf = new Waffenfacory(af);
             //stressTest(wf);
 
             this.Perks = new Perks();
@@ -36,37 +35,37 @@ namespace ConsoleApp1.Mw2
 
         public void printloadout()
         {
-            if (this.Perks.ToString() == "Aufsatz Pro")
+            if (this.Perks.Perk1 == "Aufsatz Pro")
             {
                 Console.Write("Primary: " + this.primary_waffe.Name);
-                if (this.primary_waffe.getRandomAufsatz() != null && this.primary_waffe.getRandomAufsatz() != "")
+                if (this.primary_waffe.Aufsätze != null)
                 {
-                    String first_Aufsatz = this.primary_waffe.getRandomAufsatz();
-                    Console.Write(" | Aufsatz: " + first_Aufsatz " + " + this.primary_waffe.getRandomAufsatz(first_Aufsatz));
+                    Aufsatz first_Aufsatz = this.primary_waffe.getRandomAufsatz();
+                    Console.Write(" | Aufsatz: " + first_Aufsatz.Name + " + " + this.primary_waffe.getRandomAufsatz(first_Aufsatz).Name);
                 }
                 Console.WriteLine(" ");
                 Console.WriteLine(" ");
 
                 Console.Write("Secondary: " + this.secondary_waffe.Name);
-                if (this.secondary_waffe.getRandomAufsatz() != null && this.secondary_waffe.getRandomAufsatz() != "")
+                if (this.secondary_waffe.Aufsätze != null)
                 {
-                    Console.Write(" | Aufsatz: " + this.secondary_waffe.getRandomAufsatz());
+                    Console.Write(" | Aufsatz: " + this.secondary_waffe.getRandomAufsatz().Name);
                 }
             }
             else
             {
                 Console.Write("Primary: " + this.primary_waffe.Name);
-                if (this.primary_waffe.getRandomAufsatz() != null && this.primary_waffe.getRandomAufsatz() != "")
+                if (this.primary_waffe.Aufsätze != null)
                 {
-                    Console.Write(" | Aufsatz: " + this.primary_waffe.getRandomAufsatz());
+                    Console.Write(" | Aufsatz: " + this.primary_waffe.getRandomAufsatz().Name);
                 }
                 Console.WriteLine(" ");
                 Console.WriteLine(" ");
 
                 Console.Write("Secondary: " + this.secondary_waffe.Name);
-                if (this.secondary_waffe.getRandomAufsatz() != null && this.secondary_waffe.getRandomAufsatz() != "")
+                if (this.secondary_waffe.Aufsätze != null)
                 {
-                    Console.Write(" | Aufsatz: " + this.secondary_waffe.getRandomAufsatz());
+                    Console.Write(" | Aufsatz: " + this.secondary_waffe.getRandomAufsatz().Name);
                 }
 
             }

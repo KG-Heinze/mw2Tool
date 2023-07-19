@@ -27,13 +27,14 @@ namespace SoloLearn
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                Console.ReadKey();
             }
         }
 
         public static void PrintMenu()
         {
             
-            Console.WriteLine("Mw2 Multitool");
+            Console.WriteLine("Mw2 Multitool v.1.0");
             Console.WriteLine("1. Generate Random class");
             Console.WriteLine("2. Random Map");
             Console.WriteLine("3. Exit");

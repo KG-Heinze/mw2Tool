@@ -13,7 +13,7 @@ namespace ConsoleApp1.Mw2
     {
         private String waffenkategorie = null;
         private String name = null;
-        private String[] aufsätze = null;
+        private Aufsatz[] aufsätze = null;
         private String[] tarnung = null;
 
         public Waffe()
@@ -21,7 +21,7 @@ namespace ConsoleApp1.Mw2
 
         }
 
-        public Waffe( String waffenkategorie, String name, String[] aufsätze, String[] tarnung) 
+        public Waffe( String waffenkategorie, String name, Aufsatz[] aufsätze, String[] tarnung) 
         {
             this.Waffenkategorie = waffenkategorie;
             this.Name = name;
@@ -29,40 +29,45 @@ namespace ConsoleApp1.Mw2
             this.Tarnung = tarnung;
         }
 
-        public Waffe(String waffenkategorie, String name, String[] aufsätze)
+        public Waffe(String waffenkategorie, String name, Aufsatz[] aufsätze)
         {
             this.Waffenkategorie = waffenkategorie;
             this.Name = name;
             this.Aufsätze = aufsätze;
         }
 
-        public String getRandomAufsatz()
+        public Aufsatz getRandomAufsatz()
         {
             if (this.aufsätze != null)
             {
-                int size = this.aufsätze.Count();
+                int size = this.aufsätze.Length;
 
-                return this.aufsätze[StaticRandom.Instance.Next(0, size - 1)]; ;
+                return this.aufsätze[StaticRandom.Instance.Next(0, size)]; 
             }
-            return "";
+            return new Aufsatz();
         }
 
-        public String getRandomAufsatz(String aufsatz)
+        public Aufsatz getRandomAufsatz(Aufsatz aufsatz)
         {
             if (this.aufsätze != null)
             {
-                int size = this.aufsätze.Count();
-
-                return this.aufsätze[StaticRandom.Instance.Next(0, size - 1)].Where<Aufsatz>(!); ;
+                int size = this.aufsätze.Length;
+                if (aufsatz.Typ != "normal")
+                {
+                    Aufsatz[] test = aufsätze.Where(s => s.Typ != aufsatz.Typ).ToArray();
+                    size = test.Length;
+                    return test[StaticRandom.Instance.Next(0, size)];
+                }
+                return this.aufsätze[StaticRandom.Instance.Next(0, size)];
             }
-            return "";
+            return new Aufsatz();
         }
 
 
 
         public string Waffenkategorie { get => waffenkategorie; set => waffenkategorie = value; }
         public string Name { get => name; set => name = value; }
-        public string[] Aufsätze { get => aufsätze; set => aufsätze = value; }
+        public Aufsatz[] Aufsätze { get => aufsätze; set => aufsätze = value; }
         public string[] Tarnung { get => tarnung; set => tarnung = value; }
     }
 }

@@ -13,7 +13,7 @@ namespace ConsoleApp1.Mw2
 
         }
 
-        public Werfer(String name, String[] aufsätze, String[] tarnung)
+        public Werfer(String name, Aufsatz[] aufsätze, String[] tarnung)
         {
             this.Name = name;
             this.Aufsätze = aufsätze;

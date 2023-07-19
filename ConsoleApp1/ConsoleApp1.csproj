@@ -54,7 +54,6 @@
   <ItemGroup>
     <Compile Include="Friends.cs" />
     <Compile Include="Mw2\Aufsatzfactory.cs" />
-    <Compile Include="Mw2\Aufsatztyp.cs" />
     <Compile Include="Mw2\Aufsatz.cs" />
     <Compile Include="Mw2\Ausrüstung.cs" />
     <Compile Include="Mw2\Einsatzschild.cs" />
@@ -72,7 +71,6 @@
     <Compile Include="Mw2\StaticRandom.cs" />
     <Compile Include="Mw2\Sturmgewehre.cs" />
     <Compile Include="Mw2\Todesserie.cs" />
-    <Compile Include="Mw2\Visiere.cs" />
     <Compile Include="Mw2\Waffe.cs" />
     <Compile Include="Mw2\Waffenfacory.cs" />
     <Compile Include="Mw2\Werfer.cs" />

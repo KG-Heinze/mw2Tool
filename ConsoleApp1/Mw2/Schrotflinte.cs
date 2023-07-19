@@ -13,14 +13,14 @@ namespace ConsoleApp1.Mw2
 
         }
 
-        public Schrotflinte(String name, String[] aufsätze, String[] tarnung)
+        public Schrotflinte(String name, Aufsatz[] aufsätze, String[] tarnung)
         {
             this.Name = name;
             this.Aufsätze = aufsätze;
             this.Tarnung = tarnung;
         }
 
-        public Schrotflinte(String name, String[] aufsätze)
+        public Schrotflinte(String name, Aufsatz[] aufsätze)
         {
             this.Name = name;
             this.Aufsätze = aufsätze;

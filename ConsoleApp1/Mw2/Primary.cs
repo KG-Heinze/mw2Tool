@@ -13,7 +13,7 @@ namespace ConsoleApp1.Mw2
         {
         }
 
-        public Primary(String waffenkategorie, String name, String[] aufsätze, String[] tarnung)
+        public Primary(String waffenkategorie, String name, Aufsatz[] aufsätze, String[] tarnung)
         {
             this.Waffenkategorie = waffenkategorie;
             this.Name = name;

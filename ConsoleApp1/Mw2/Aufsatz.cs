@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ConsoleApp1.Mw2
 {
     
-    class Aufsatz
+    public class Aufsatz
     {
         private String name = null;
         private String typ = null;
