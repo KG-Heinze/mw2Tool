@@ -6,6 +6,11 @@ using Discord;
 using Discord.WebSocket;
 using Newtonsoft.Json;
 using Discord.Net;
+using Discord.Net.WebSockets;
+using Discord.Net.Rest;
+using Discord.Net.Udp;
+using Discord.Rest;
+using System.Runtime.Remoting.Proxies;
 
 namespace SoloLearn
 {
@@ -13,15 +18,30 @@ namespace SoloLearn
     {
         public static Task Main(string[] args) => new Program().MainAsync();
         private DiscordSocketClient _client;
-
+        private List<String> _mapList = new List<string>();
+        private String _lastMap = "";
+        private Dictionary<ulong, int> _vetoList = new Dictionary<ulong, int>();
         public async Task MainAsync()
         {
             try
             {
-                _client = new DiscordSocketClient();
+                _mapList = InitiateMaps();
+
+                var webproxy = new System.Net.WebProxy("192.168.10.10", 3128);
+                webproxy.UseDefaultCredentials = true;
+
+                var config = new DiscordSocketConfig
+                {
+                    WebSocketProvider = DefaultWebSocketProvider.Create(proxy: webproxy),
+                    RestClientProvider = DefaultRestClientProvider.Create(useProxy: true),
+                    
+                };
+
+                _client = new DiscordSocketClient(config);
 
                 _client.Log += Log;
-                var token = "MTEzMTE0Njc1OTg3MjE4NDM3MQ.GOw-R-.imMUM7IU9zYUuuUTWYwjWW5Yo5jp2ibu2668v4";
+
+                var token = "MTEzMTE0Njc1OTg3MjE4NDM3MQ.GJNhbo.-b1N0qeXHyAA0Rf0xawrKHtl2vQZJ4FYwdNZq8";
 
                 await _client.LoginAsync(TokenType.Bot, token);
                 await _client.StartAsync();
@@ -101,8 +121,39 @@ namespace SoloLearn
             }
             else if (command.Data.Name == "random-map")
             {
+                await command.RespondAsync(Random_Map(_mapList));
+            }
+            else if (command.Data.Name == "veto")
+            {
+                //Check if User is allowed to veto
+                ulong user = command.User.Id;
+                int day = DateTime.Now.Day;
 
-                await command.RespondAsync(RandomMap());
+                if (!_vetoList.ContainsKey(user))
+                {
+                    _vetoList.Add(user, day);
+                    _mapList.Remove(_lastMap);
+                    await command.RespondAsync(Random_Map(_mapList));
+                }
+
+                if (_vetoList.TryGetValue(user, out int listedDay))
+                {
+                    if (listedDay == day)
+                    {
+                        // List of insults
+                        await command.RespondAsync("Not allowed to veto anymore");
+
+                    }
+                    else
+                    {
+                        _mapList.Remove(_lastMap);
+                        await command.RespondAsync(Random_Map(_mapList));
+                    }
+                }
+            }
+            else if (command.Data.Name == "ini_maps")
+            {
+                _mapList = InitiateMaps();
             }
             else
             {
@@ -122,15 +173,27 @@ namespace SoloLearn
             random_map.WithName("random-map");
             random_map.WithDescription("Random Mw2 Map");
 
-            var guildCommand = new SlashCommandBuilder();
-            guildCommand.WithName("random-loadout");
-            guildCommand.WithDescription("Random Mw2 Loadout!");
+            var random_loadout = new SlashCommandBuilder();
+            random_loadout.WithName("random-loadout");
+            random_loadout.WithDescription("Random Mw2 Loadout!");
+
+            var veto_map = new SlashCommandBuilder();
+            veto_map.WithName("veto");
+            veto_map.WithDescription("Veto the last map!");
+
+            var initiate_maps = new SlashCommandBuilder();
+            initiate_maps.WithName("ini_maps");
+            initiate_maps.WithDescription("Restart Map List");
 
             try
             {
+                await guild.DeleteApplicationCommandsAsync();
+                await _client.BulkOverwriteGlobalApplicationCommandsAsync(new Discord.ApplicationCommandProperties[] {});
                 // Now that we have our builder, we can call the CreateApplicationCommandAsync method to make our slash command.
-                await guild.CreateApplicationCommandAsync(guildCommand.Build());
+                await guild.CreateApplicationCommandAsync(random_loadout.Build());
                 await guild.CreateApplicationCommandAsync(random_map.Build());
+                await guild.CreateApplicationCommandAsync(veto_map.Build());
+                await guild.CreateApplicationCommandAsync(initiate_maps.Build());
 
             }
             catch (HttpException exception)
@@ -148,47 +211,9 @@ namespace SoloLearn
             return Task.CompletedTask;
         }
 
-        public static void PrintMenu()
-        {
-            
-            Console.WriteLine("Mw2 Multitool v.1.0");
-            Console.WriteLine("1. Generate Random class");
-            Console.WriteLine("2. Random Map");
-            Console.WriteLine("3. Exit");
-
-            String userInputRaw = Console.ReadLine();
-            int userInput;
-
-            if (!int.TryParse(userInputRaw, out userInput))
-            {
-                Console.WriteLine("Error: Please put in a number");
-                return;
-            }
-
-            Console.WriteLine(" ");
-            switch (userInput)
-            {
-                case 1:
-                    Loadout loadout = new Loadout();
-                    break;
-                case 2:
-                    Console.WriteLine(RandomMap());
-                    break;
-                case 3:
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("Error: Please put in a valid number");
-                    break;
-
-            }
-            Console.WriteLine("--------------------------------------------------------------");
-        }
-
-        public static String RandomMap()
+        public List<String> InitiateMaps()
         {
             List<String> map_List = new List<string>();
-
             map_List.Add("Afghan");
             map_List.Add("Bailout");
             map_List.Add("Carnival");
@@ -212,10 +237,14 @@ namespace SoloLearn
             map_List.Add("Trailer Park");
             map_List.Add("Underpass");
             map_List.Add("Vacant ");
+            return map_List;
+        }
 
+        public String Random_Map(List<String> map_List)
+        {
             int size = map_List.Count;
-
-            return map_List[StaticRandom.Instance.Next(0, size - 1)];
+            _lastMap = map_List[StaticRandom.Instance.Next(0, size - 1)];
+            return _lastMap;
         }
     }
 }

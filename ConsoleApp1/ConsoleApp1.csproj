@@ -119,6 +119,7 @@
     <Compile Include="Mw2\Ausrüstung.cs" />
     <Compile Include="Mw2\Einsatzschild.cs" />
     <Compile Include="Mw2\Handfeuerwaffe.cs" />
+    <Compile Include="Mw2\Insult.cs" />
     <Compile Include="Mw2\LeichteMgs.cs" />
     <Compile Include="Mw2\Loadout.cs" />
     <Compile Include="Mw2\Prim_Maschinenpistole.cs" />
