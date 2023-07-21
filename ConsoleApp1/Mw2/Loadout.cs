@@ -15,12 +15,13 @@ namespace ConsoleApp1.Mw2
         private Waffe secondary_waffe = null;
         private Waffe primary_waffe = null;
 
-        public Loadout(Waffenfactory wf)
+        public Loadout(Waffenfactory wf, Perks perks)
         {
 
-            //StressTest(wf);
+            //StressTest(wf, perks);
 
-            this.Perks = new Perks();
+            this.Perks = perks;
+            perks.GetRandomPerks();
             this.ausrüstung = new Ausrüstung();
             this.todesserie = new Todesserie();
             this.spezialgranate = new Spezialgranate();
@@ -33,10 +34,10 @@ namespace ConsoleApp1.Mw2
 
         public void Printloadout()
         {
-            if (this.Perks.Perk1 == "Aufsatz Pro")
+            if (this.perks.Perk1 == "Aufsatz Pro")
             {
                 Console.Write("Primary: " + this.primary_waffe.Name);
-                if (this.primary_waffe.Aufsätze != null)
+                if (this.primary_waffe.Aufsätze.Count() > 0)
                 {
                     Aufsatz first_Aufsatz = this.primary_waffe.GetRandomAufsatz();
                     Console.Write(" | Aufsatz: " + first_Aufsatz.Name + " + " + this.primary_waffe.GetRandomAufsatz(first_Aufsatz).Name);
@@ -45,7 +46,7 @@ namespace ConsoleApp1.Mw2
                 Console.WriteLine(" ");
 
                 Console.Write("Secondary: " + this.secondary_waffe.Name);
-                if (this.secondary_waffe.Aufsätze != null)
+                if (this.secondary_waffe.Aufsätze.Count() > 0)
                 {
                     Console.Write(" | Aufsatz: " + this.secondary_waffe.GetRandomAufsatz().Name);
                 }
@@ -53,7 +54,7 @@ namespace ConsoleApp1.Mw2
             else
             {
                 Console.Write("Primary: " + this.primary_waffe.Name);
-                if (this.primary_waffe.Aufsätze != null)
+                if (this.primary_waffe.Aufsätze.Count() > 0 )
                 {
                     Console.Write(" | Aufsatz: " + this.primary_waffe.GetRandomAufsatz().Name);
                 }
@@ -61,7 +62,7 @@ namespace ConsoleApp1.Mw2
                 Console.WriteLine(" ");
 
                 Console.Write("Secondary: " + this.secondary_waffe.Name);
-                if (this.secondary_waffe.Aufsätze != null)
+                if (this.secondary_waffe.Aufsätze.Count() > 0)
                 {
                     Console.Write(" | Aufsatz: " + this.secondary_waffe.GetRandomAufsatz().Name);
                 }
@@ -90,13 +91,14 @@ namespace ConsoleApp1.Mw2
 
         }
 
-        public void StressTest(Waffenfactory wf)
+        public void StressTest(Waffenfactory wf, Perks perks)
         {
             for (int i = 1; i < 1000; i++)
             {
                 Console.WriteLine(" ");
                 Console.WriteLine(i);
-                this.Perks = new Perks();
+                this.perks = perks;
+                perks.GetRandomPerks();
                 this.ausrüstung = new Ausrüstung();
                 this.todesserie = new Todesserie();
                 this.spezialgranate = new Spezialgranate();

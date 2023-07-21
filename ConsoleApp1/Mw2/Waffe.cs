@@ -38,7 +38,7 @@ namespace ConsoleApp1.Mw2
 
         public Aufsatz GetRandomAufsatz()
         {
-            if (this.aufsätze != null)
+            if (this.aufsätze.Count() > 0)
             {
                 int size = this.aufsätze.Count();
 
@@ -49,7 +49,7 @@ namespace ConsoleApp1.Mw2
 
         public Aufsatz GetRandomAufsatz(Aufsatz aufsatz)
         {
-            if (this.aufsätze != null)
+            if (this.aufsätze.Count() > 0)
             {
                 int size = this.aufsätze.Count();
                 if (aufsatz.Typ != "normal")

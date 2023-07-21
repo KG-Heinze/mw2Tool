@@ -18,19 +18,19 @@ namespace SoloLearn
         private List<String> _mapList = new List<string>();
         private String _lastMap = "";
         private readonly Dictionary<ulong, int> _vetoList = new Dictionary<ulong, int>();
-        private  Aufsatzfactory _aufsätze;
-        private  Waffenfactory _waffen;
-
+        private Aufsatzfactory _aufsätze;
+        private Waffenfactory _waffen;
+        private Perks _perks;
         public async Task MainAsync()
         {
             try
             {
+                // Aufsetzen der Variablen beim Start der Anwendung
                 _mapList = InitiateMaps();
-
                 _aufsätze = new Aufsatzfactory();
-
                 _waffen = new Waffenfactory(_aufsätze);
-
+                _perks = new Perks();
+                #region Schulproxy umgehen
                 //Schulproxy umgehen
                 //var webproxy = new System.Net.WebProxy("192.168.10.10", 3128);
                 //webproxy.UseDefaultCredentials = true;
@@ -40,17 +40,20 @@ namespace SoloLearn
                 //    RestClientProvider = DefaultRestClientProvider.Create(useProxy: true),
                 //};
                 //_client = new DiscordSocketClient(config);
+                #endregion
 
+                #region Discord Bot
+                //Aufsetzen vom Discord Bot
                 _client = new DiscordSocketClient();
                 _client.Log += Log;
                 var token = Token.GetToken();
                 await _client.LoginAsync(TokenType.Bot, token);
                 await _client.StartAsync();
                 _client.SlashCommandExecuted += SlashCommandHandler;
-
                 _client.Ready += Client_Ready;
                 // Block this task until the program is closed.
                 await Task.Delay(-1);
+                #endregion
             }
             catch (Exception ex)
             {
@@ -64,12 +67,12 @@ namespace SoloLearn
             if (command.Data.Name == "random-loadout")
             {
                 String output = "";
-                Loadout loudout = new Loadout(_waffen);
+                Loadout loudout = new Loadout(_waffen, _perks);
 
                 if (loudout.Perks.Perk1 == "Aufsatz Pro")
                 {
                     output += ("Primary: " + loudout.Primary_waffe.Name);
-                    if (loudout.Primary_waffe.Aufsätze != null)
+                    if (loudout.Primary_waffe.Aufsätze.Count() > 0)
                     {
                         Aufsatz first_Aufsatz = loudout.Primary_waffe.GetRandomAufsatz();
                         output += " | Aufsatz: " + first_Aufsatz.Name + " + " + loudout.Primary_waffe.GetRandomAufsatz(first_Aufsatz).Name + "\n";
@@ -80,7 +83,7 @@ namespace SoloLearn
                     }
 
                     output += "Secondary: " + loudout.Secondary_waffe.Name;
-                    if (loudout.Secondary_waffe.Aufsätze != null)
+                    if (loudout.Secondary_waffe.Aufsätze.Count() > 0)
                     {
                         output += " | Aufsatz: " + loudout.Secondary_waffe.GetRandomAufsatz().Name + "\n";
                     }
@@ -92,13 +95,17 @@ namespace SoloLearn
                 else
                 {
                     output += "Primary: " + loudout.Primary_waffe.Name;
-                    if (loudout.Primary_waffe.Aufsätze != null)
+                    if (loudout.Primary_waffe.Aufsätze.Count() > 0)
                     {
                         output += " | Aufsatz: " + loudout.Primary_waffe.GetRandomAufsatz().Name + "\n";
                     }
+                    else
+                    {
+                        output += "\n";
+                    }
 
                     output += "Secondary: " + loudout.Secondary_waffe.Name;
-                    if (loudout.Secondary_waffe.Aufsätze != null)
+                    if (loudout.Secondary_waffe.Aufsätze.Count() > 0)
                     {
                         output += " | Aufsatz: " + loudout.Secondary_waffe.GetRandomAufsatz().Name + "\n";
                     }
@@ -161,13 +168,30 @@ namespace SoloLearn
                 _mapList = InitiateMaps();
                 await command.RespondAsync($"Load all maps into List");
             }
-            else if (command.Data.Name == "aufsatz-ban")
+            else if (command.Data.Name == "remove")
             {
-                Aufsatz remove = new Aufsatz(command.Data.Options.First().Value.ToString());
-                _waffen.Primär_Waffen_Liste = _waffen.RemoveAufsätze(remove, _waffen.Primär_Waffen_Liste);
-                _waffen.Secondary_Waffen_Liste = _waffen.RemoveAufsätze(remove, _waffen.Secondary_Waffen_Liste);
+                if (command.Data.Options.First().Name.ToString() == "aufsatz")
+                {
+                    Aufsatz remove = new Aufsatz(command.Data.Options.First().Value.ToString());
+                    _waffen.Primär_Waffen_Liste = _waffen.RemoveAufsätze(remove, _waffen.Primär_Waffen_Liste);
+                    _waffen.Secondary_Waffen_Liste = _waffen.RemoveAufsätze(remove, _waffen.Secondary_Waffen_Liste);
 
-                await command.RespondAsync($"{remove.Name} removed");
+                    await command.RespondAsync($"{remove.Name} removed");
+                }
+                else if (command.Data.Options.First().Name.ToString() == "perk")
+                {
+                    String remove = command.Data.Options.First().Value.ToString();
+                    _perks.RemovePerk(remove);
+                    await command.RespondAsync($"{remove} removed");
+                }
+                else if (command.Data.Options.First().Name.ToString() == "waffe")
+                {
+
+                }
+                else
+                {
+                    await command.RespondAsync($"Sprich Deutsch du Hurensohn");
+                }
             }
             else
             {
@@ -199,28 +223,134 @@ namespace SoloLearn
             initiate_maps.WithName("ini_maps");
             initiate_maps.WithDescription("Restart Map List");
 
-            var ban_aufsatz = new SlashCommandBuilder()
-                .WithName("aufsatz-ban")
-                .WithDescription("Ban aufsatz from weapons")
+            var remove = new SlashCommandBuilder()
+                .WithName("remove")
+                .WithDescription("remove aufsatz/weapon/perk from the list")
                 .AddOption(new SlashCommandOptionBuilder()
                     .WithName("aufsatz")
-                    .WithDescription("Ban the selected Aufsatz")
+                    .WithDescription("remove the selected Aufsatz")
+                    .AddChoice("Granatenwerfer", "Granatenwerfer")
+                    .AddChoice("Rotpunktvisier", "Rotpunktvisier")
+                    .AddChoice("Schalldämpfer", "Schalldämpfer")
+                    .AddChoice("ACOG-Zielfernrohr", "ACOG - Zielfernrohr")
+                    .AddChoice("Vollmantelgeschoss", "Vollmantelgeschoss")
+                    .AddChoice("Schrotflinte", "Schrotflinte")
+                    .AddChoice("Holographisches Visier", "Holographisches Visier")
                     .AddChoice("Herzschlagsensor", "Herzschlagsensor")
                     .AddChoice("Thermal", "Thermal")
+                    .AddChoice("Schnellfeuer", "Schnellfeuer")
+                    .AddChoice("Akimbo", "Akimbo")
+                    .AddChoice("Griff", "Griff")
+                    .AddChoice("Taktikmesser", "Taktikmesser")
                     .WithType(ApplicationCommandOptionType.String)
+                    )
+                .AddOption(new SlashCommandOptionBuilder()
+                    .WithName("perk")
+                    .WithDescription("remove the selected perk")
+                    .AddChoice("Marathon Pro", "Marathon Pro")
+                    .AddChoice("Fingerfertigkeit Pro", "Fingerfertigkeit Pro")
+                    .AddChoice("Plünderer Pro", "Plünderer Pro")
+                    .AddChoice("Aufsatz Pro", "Aufsatz Pro")
+                    .AddChoice("Ein-Mann-Armee Pro", "Ein-Mann-Armee Pro")
+                    .AddChoice("Feuerkraft Pro", "Feuerkraft Pro")
+                    .AddChoice("Leichtgewicht Pro", "Leichtgewicht Pro")
+                    .AddChoice("Hardliner Pro", "Hardliner Pro")
+                    .AddChoice("Eiskalt Pro", "Eiskalt Pro")
+                    .AddChoice("Direkte Gefahr Pro", "Direkte Gefahr Pro")
+                    .AddChoice("Kommando Pro", "Kommando Pro")
+                    .AddChoice("Ruhige Hand Pro", "Ruhige Hand Pro")
+                    .AddChoice("Störer Pro", "Störer Pro")
+                    .AddChoice("Ninja Pro", "Ninja Pro")
+                    .AddChoice("Lagebericht Pro", "Lagebericht Pro")
+                    .AddChoice("Eliminator Pro", "Eliminator Pro")
+                    .WithType(ApplicationCommandOptionType.String)
+                    );
+
+            var remove_weapon = new SlashCommandBuilder()
+                    .AddOption(new SlashCommandOptionBuilder()
+                    .WithName("waffe")
+                    .WithDescription("remove the selected waffe")
+                    // Sturmgewehre
+                    .AddChoice("M4A1", "M4A1")
+                    //.AddChoice("Famas", "Famas")
+                    //.AddChoice("Scar-H", "Scar-H")
+                    //.AddChoice("TAR-21", "TAR-21")
+                    //.AddChoice("FAL", "FAL")
+                    //.AddChoice("M16A4", "M16A4")
+                    //.AddChoice("ACR", "ACR")
+                    //.AddChoice("F2000", "F2000")
+                    //.AddChoice("AK47-Classic", "AK47-Classic")
+
+                    //// Maschinengewehr
+                    //.AddChoice("MP5K", "MP5K")
+                    //.AddChoice("UMP45", "UMP45")
+                    //.AddChoice("Vector", "Vector")
+                    //.AddChoice("P90", "P90")
+                    //.AddChoice("Mini-Uzi", "Mini-Uzi")
+                    //.AddChoice("AK47U", "AK47U")
+                    //.AddChoice("Peacekeeper", "Peacekeeper")
+
+                    //// Leichte MGS
+                    //.AddChoice("L86 LSW", "L86 LSW")
+                    //.AddChoice("RPD", "RPD")
+                    //.AddChoice("MG4", "MG4")
+                    //.AddChoice("AUG HBAR", "AUG HBAR")
+                    //.AddChoice("L86 LSW", "L86 LSW")
+
+                    //// Sniper
+                    //.AddChoice("Intervention", "Intervention")
+                    //.AddChoice("Barrett KAL. .50", "Barrett KAL. .50")
+                    //.AddChoice("WA2000", "WA2000")
+                    //.AddChoice("M21EBR", "M21EBR")
+                    //.AddChoice("M40A3", "M40A3")
+                    //.AddChoice("Dragunow", "Dragunow")
+
+                    // Schild
+                    .AddChoice("Einsatzschild", "Einsatzschild")
+                    .WithType(ApplicationCommandOptionType.String)
+                    //)
+            //        .AddOption(new SlashCommandOptionBuilder()
+            //        .WithName("secondary")
+            //        .WithDescription("remove the selected secondary waffe")
+            //// Secondary Maschinengewehr
+            //.AddChoice("PP2000", "PP2000s")
+            //.AddChoice("G18", "G18")
+            //.AddChoice("M93 Raffica", "M93 Raffica")
+            //.AddChoice("TMP", "TMP")
+
+            //// Handfeuer
+            //.AddChoice("USP .45", "USP .45")
+            //.AddChoice(".44 Magnum", ".44 Magnum")
+            //.AddChoice("M9", "M9")
+            //.AddChoice("Desert Eagle", "Desert Eagle")
+            //.AddChoice("Gold Desert Eagle", "Gold Desert Eagle")
+
+            //// Schritflinten
+            //.AddChoice("SPAS-12", "SPAS-12")
+            //.AddChoice("AA-12", "AA-12")
+            //.AddChoice("Striker", "Striker")
+            //.AddChoice("Ranger", "Ranger")
+            //.AddChoice("M1014", "M1014")
+            //.AddChoice("Modell 1887", "Modell 1887")
+
+            ////Werfer
+            //.AddChoice("AT4-Wärmelenk", "AT4-Wärmelenk")
+            //.AddChoice("Thumper x2", "Thumper x2")
+            //.AddChoice("Stinger", "Stinger")
+            //.AddChoice("Javelin", "Javelin")
+            //.AddChoice("Raketenwerfer", "Raketenwerfer")
             );
-            
 
             try
             {
                 await guild.DeleteApplicationCommandsAsync();
-                await _client.BulkOverwriteGlobalApplicationCommandsAsync(new Discord.ApplicationCommandProperties[] {});
+                await _client.BulkOverwriteGlobalApplicationCommandsAsync(new Discord.ApplicationCommandProperties[] { });
                 // Now that we have our builder, we can call the CreateApplicationCommandAsync method to make our slash command.
                 await guild.CreateApplicationCommandAsync(random_loadout.Build());
                 await guild.CreateApplicationCommandAsync(random_map.Build());
                 await guild.CreateApplicationCommandAsync(veto_map.Build());
                 await guild.CreateApplicationCommandAsync(initiate_maps.Build());
-                await guild.CreateApplicationCommandAsync(ban_aufsatz.Build());
+                await guild.CreateApplicationCommandAsync(remove.Build());
 
             }
             catch (HttpException exception)
