@@ -124,6 +124,7 @@
     <Compile Include="Mw2\Loadout.cs" />
     <Compile Include="Mw2\Prim_Maschinenpistole.cs" />
     <Compile Include="Mw2\Scharfschützengewehr.cs" />
+    <Compile Include="Mw2\Secret\Token.cs" />
     <Compile Include="Mw2\Sec_Maschinenpistole.cs" />
     <Compile Include="Mw2\Perks.cs" />
     <Compile Include="Mw2\Primary.cs" />
@@ -145,7 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="commands\" />
-    <Folder Include="Mw2\Secondary\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

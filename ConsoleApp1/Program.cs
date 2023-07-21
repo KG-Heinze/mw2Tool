@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConsoleApp1.Mw2;
+using ConsoleApp1.Mw2.Secret;
 using Discord;
 using Discord.WebSocket;
 using Newtonsoft.Json;
@@ -42,7 +43,7 @@ namespace SoloLearn
 
                 _client = new DiscordSocketClient();
                 _client.Log += Log;
-                var token = "MTEzMTE0Njc1OTg3MjE4NDM3MQ.GKZlZ6.hBiL4ZWZUtfJ9wQ1NPh8A-ohz1v1zlp3kkxzB0";
+                var token = Token.GetToken();
                 await _client.LoginAsync(TokenType.Bot, token);
                 await _client.StartAsync();
                 _client.SlashCommandExecuted += SlashCommandHandler;
