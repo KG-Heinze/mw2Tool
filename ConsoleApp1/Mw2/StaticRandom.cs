@@ -11,7 +11,7 @@ namespace ConsoleApp1.Mw2
     {
         private static int seed;
 
-        private static ThreadLocal<Random> threadLocal = new ThreadLocal<Random>
+        private static readonly ThreadLocal<Random> threadLocal = new ThreadLocal<Random>
             (() => new Random(Interlocked.Increment(ref seed)));
 
         static StaticRandom()

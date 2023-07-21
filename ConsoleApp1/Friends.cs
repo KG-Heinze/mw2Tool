@@ -8,11 +8,10 @@ namespace ConsoleApp1
 {
     public class Friends
     {
-        private String Name = "";
-        private ulong discordId = 0;
+        private readonly String Name = "";
         private int Hp;
-        private int Attack;
-        private int Speed;
+        private readonly int attack;
+        private readonly int Speed;
         private int Crit = 5;
 
 
@@ -27,10 +26,10 @@ namespace ConsoleApp1
         }
         public Friends()
         {
-            
+
         }
 
-        public void startgame()
+        public void Startgame()
         {
             try
             {
@@ -81,7 +80,7 @@ namespace ConsoleApp1
         {
             this.Name = name;
             this.Hp = Hp;
-            this.Attack = Attack;
+            this.attack = Attack;
             this.Speed = Speed;
         }
 
@@ -90,39 +89,39 @@ namespace ConsoleApp1
             Console.WriteLine(this.Name + " is my name!+");
         }
 
-        public void attack(Friends attacker, Friends bitch)
+        public void Attack(Friends attacker, Friends bitch)
         {
             if (attacker.GetName() == "Jan")
             {
-                if (RandomNumber(0,100) < 5)
+                if (RandomNumber(0, 100) < 5)
                 {
                     bitch.Hp = 0;
                 }
             }
-            else if (attacker.GetName() == "Malena") 
+            else if (attacker.GetName() == "Malena")
             {
-                if (RandomNumber(0,100) < 10)
+                if (RandomNumber(0, 100) < 10)
                 {
                     Console.WriteLine("Malena hat sich unsichtbar gemacht und einen Schokoriegel gefunden! Sie wurde um 3 geheilt");
-                    attacker.Hp = attacker.Hp + 3;
+                    attacker.Hp += 3;
                 }
             }
             else if (attacker.GetName() == "Sören")
             {
-                    Console.WriteLine("Sörens Nase wird Größer, seine Crit Chance wird größer");
-                    attacker.Crit = attacker.Crit + 10;
+                Console.WriteLine("Sörens Nase wird Größer, seine Crit Chance wird größer");
+                attacker.Crit += 10;
             }
 
 
             //crit
-            if (RandomNumber(0,100) <= attacker.Crit)
+            if (RandomNumber(0, 100) <= attacker.Crit)
             {
                 Console.WriteLine("Holy Shit, ein Crit!");
-                bitch.Hp = bitch.Hp - attacker.GetAttack() * 2;
+                bitch.Hp -= attacker.GetAttack() * 2;
             }
             else
             {
-                bitch.Hp = bitch.Hp - attacker.GetAttack();
+                bitch.Hp -= attacker.GetAttack();
             }
         }
 
@@ -170,7 +169,7 @@ namespace ConsoleApp1
 
                 if (Speedcompare)
                 {
-                    fighters[random1].attack(fighters[random1], fighters[random2]);
+                    fighters[random1].Attack(fighters[random1], fighters[random2]);
                     // check if crit
 
                     Console.WriteLine(fighters[random1].GetName() + " greift " + fighters[random2].GetName() + " für " + fighters[random1].GetAttack() + " an und macht " + fighters[random1].GetAttack() + " Schaden. " + fighters[random2].GetName() + " hat nun noch " + fighters[random2].GetHp() + " Leben");
@@ -179,7 +178,7 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    fighters[random2].attack(fighters[random2], fighters[random1]);
+                    fighters[random2].Attack(fighters[random2], fighters[random1]);
                     // check if crit
 
                     Console.WriteLine(fighters[random2].GetName() + " greift " + fighters[random1].GetName() + " für " + fighters[random2].GetAttack() + " an und macht " + fighters[random2].GetAttack() + " Schaden. " + fighters[random1].GetName() + " hat nun noch " + fighters[random1].GetHp() + " Leben");
@@ -195,7 +194,7 @@ namespace ConsoleApp1
             }
         }
 
-            public int GetHp()
+        public int GetHp()
         {
             if (this.Hp < 0)
             {
@@ -216,7 +215,7 @@ namespace ConsoleApp1
 
         public int GetAttack()
         {
-            return this.Attack;
+            return this.attack;
         }
 
         public String GetName()
@@ -224,9 +223,9 @@ namespace ConsoleApp1
             return this.Name;
         }
 
-        public void reduceLife()
+        public void ReduceLife()
         {
-            
+
         }
     }
 }

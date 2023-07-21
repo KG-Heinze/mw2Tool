@@ -12,14 +12,14 @@ namespace ConsoleApp1.Mw2
         {
 
         }
-        public Sturmgewehre(String name, Aufsatz[] aufsätze, String[] tarnung)
+        public Sturmgewehre(String name, List<Aufsatz> aufsätze, String[] tarnung)
         {
             this.Name = name;
             this.Aufsätze = aufsätze;
             this.Tarnung = tarnung;
         }
 
-        public Sturmgewehre(String name, Aufsatz[] aufsätze)
+        public Sturmgewehre(String name, List<Aufsatz> aufsätze)
         {
             this.Name = name;
             this.Aufsätze = aufsätze;

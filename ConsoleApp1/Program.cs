@@ -6,43 +6,43 @@ using Discord;
 using Discord.WebSocket;
 using Newtonsoft.Json;
 using Discord.Net;
-using Discord.Net.WebSockets;
-using Discord.Net.Rest;
-using Discord.Net.Udp;
-using Discord.Rest;
-using System.Runtime.Remoting.Proxies;
+using System.Linq;
 
 namespace SoloLearn
 {
     class Program
     {
-        public static Task Main(string[] args) => new Program().MainAsync();
+        public static Task Main() => new Program().MainAsync();
         private DiscordSocketClient _client;
         private List<String> _mapList = new List<string>();
         private String _lastMap = "";
-        private Dictionary<ulong, int> _vetoList = new Dictionary<ulong, int>();
+        private readonly Dictionary<ulong, int> _vetoList = new Dictionary<ulong, int>();
+        private  Aufsatzfactory _aufsätze;
+        private  Waffenfactory _waffen;
+
         public async Task MainAsync()
         {
             try
             {
                 _mapList = InitiateMaps();
 
-                var webproxy = new System.Net.WebProxy("192.168.10.10", 3128);
-                webproxy.UseDefaultCredentials = true;
+                _aufsätze = new Aufsatzfactory();
 
-                var config = new DiscordSocketConfig
-                {
-                    WebSocketProvider = DefaultWebSocketProvider.Create(proxy: webproxy),
-                    RestClientProvider = DefaultRestClientProvider.Create(useProxy: true),
-                    
-                };
+                _waffen = new Waffenfactory(_aufsätze);
 
-                _client = new DiscordSocketClient(config);
+                //Schulproxy umgehen
+                //var webproxy = new System.Net.WebProxy("192.168.10.10", 3128);
+                //webproxy.UseDefaultCredentials = true;
+                //var config = new DiscordSocketConfig
+                //{
+                //    WebSocketProvider = DefaultWebSocketProvider.Create(proxy: webproxy),
+                //    RestClientProvider = DefaultRestClientProvider.Create(useProxy: true),
+                //};
+                //_client = new DiscordSocketClient(config);
 
+                _client = new DiscordSocketClient();
                 _client.Log += Log;
-
-                var token = "MTEzMTE0Njc1OTg3MjE4NDM3MQ.GJNhbo.-b1N0qeXHyAA0Rf0xawrKHtl2vQZJ4FYwdNZq8";
-
+                var token = "MTEzMTE0Njc1OTg3MjE4NDM3MQ.GKZlZ6.hBiL4ZWZUtfJ9wQ1NPh8A-ohz1v1zlp3kkxzB0";
                 await _client.LoginAsync(TokenType.Bot, token);
                 await _client.StartAsync();
                 _client.SlashCommandExecuted += SlashCommandHandler;
@@ -63,21 +63,25 @@ namespace SoloLearn
             if (command.Data.Name == "random-loadout")
             {
                 String output = "";
-                Loadout loudout = new Loadout();
+                Loadout loudout = new Loadout(_waffen);
 
                 if (loudout.Perks.Perk1 == "Aufsatz Pro")
                 {
                     output += ("Primary: " + loudout.Primary_waffe.Name);
                     if (loudout.Primary_waffe.Aufsätze != null)
                     {
-                        Aufsatz first_Aufsatz = loudout.Primary_waffe.getRandomAufsatz();
-                        output += " | Aufsatz: " + first_Aufsatz.Name + " + " + loudout.Primary_waffe.getRandomAufsatz(first_Aufsatz).Name + "\n";
+                        Aufsatz first_Aufsatz = loudout.Primary_waffe.GetRandomAufsatz();
+                        output += " | Aufsatz: " + first_Aufsatz.Name + " + " + loudout.Primary_waffe.GetRandomAufsatz(first_Aufsatz).Name + "\n";
+                    }
+                    else
+                    {
+                        output += "\n";
                     }
 
                     output += "Secondary: " + loudout.Secondary_waffe.Name;
                     if (loudout.Secondary_waffe.Aufsätze != null)
                     {
-                        output += " | Aufsatz: " + loudout.Secondary_waffe.getRandomAufsatz().Name + "\n";
+                        output += " | Aufsatz: " + loudout.Secondary_waffe.GetRandomAufsatz().Name + "\n";
                     }
                     else
                     {
@@ -89,13 +93,13 @@ namespace SoloLearn
                     output += "Primary: " + loudout.Primary_waffe.Name;
                     if (loudout.Primary_waffe.Aufsätze != null)
                     {
-                        output += " | Aufsatz: " + loudout.Primary_waffe.getRandomAufsatz().Name + "\n";
+                        output += " | Aufsatz: " + loudout.Primary_waffe.GetRandomAufsatz().Name + "\n";
                     }
 
                     output += "Secondary: " + loudout.Secondary_waffe.Name;
                     if (loudout.Secondary_waffe.Aufsätze != null)
                     {
-                        output += " | Aufsatz: " + loudout.Secondary_waffe.getRandomAufsatz().Name + "\n";
+                        output += " | Aufsatz: " + loudout.Secondary_waffe.GetRandomAufsatz().Name + "\n";
                     }
                     else
                     {
@@ -154,6 +158,15 @@ namespace SoloLearn
             else if (command.Data.Name == "ini_maps")
             {
                 _mapList = InitiateMaps();
+                await command.RespondAsync($"Load all maps into List");
+            }
+            else if (command.Data.Name == "aufsatz-ban")
+            {
+                Aufsatz remove = new Aufsatz(command.Data.Options.First().Value.ToString());
+                _waffen.Primär_Waffen_Liste = _waffen.RemoveAufsätze(remove, _waffen.Primär_Waffen_Liste);
+                _waffen.Secondary_Waffen_Liste = _waffen.RemoveAufsätze(remove, _waffen.Secondary_Waffen_Liste);
+
+                await command.RespondAsync($"{remove.Name} removed");
             }
             else
             {
@@ -185,6 +198,18 @@ namespace SoloLearn
             initiate_maps.WithName("ini_maps");
             initiate_maps.WithDescription("Restart Map List");
 
+            var ban_aufsatz = new SlashCommandBuilder()
+                .WithName("aufsatz-ban")
+                .WithDescription("Ban aufsatz from weapons")
+                .AddOption(new SlashCommandOptionBuilder()
+                    .WithName("aufsatz")
+                    .WithDescription("Ban the selected Aufsatz")
+                    .AddChoice("Herzschlagsensor", "Herzschlagsensor")
+                    .AddChoice("Thermal", "Thermal")
+                    .WithType(ApplicationCommandOptionType.String)
+            );
+            
+
             try
             {
                 await guild.DeleteApplicationCommandsAsync();
@@ -194,6 +219,7 @@ namespace SoloLearn
                 await guild.CreateApplicationCommandAsync(random_map.Build());
                 await guild.CreateApplicationCommandAsync(veto_map.Build());
                 await guild.CreateApplicationCommandAsync(initiate_maps.Build());
+                await guild.CreateApplicationCommandAsync(ban_aufsatz.Build());
 
             }
             catch (HttpException exception)
@@ -213,30 +239,32 @@ namespace SoloLearn
 
         public List<String> InitiateMaps()
         {
-            List<String> map_List = new List<string>();
-            map_List.Add("Afghan");
-            map_List.Add("Bailout");
-            map_List.Add("Carnival");
-            map_List.Add("Derail");
-            map_List.Add("Estate");
-            map_List.Add("Favela");
-            map_List.Add("Fuel");
-            map_List.Add("Highrise");
-            map_List.Add("Invasion");
-            map_List.Add("Karachi");
-            map_List.Add("Overgrown");
-            map_List.Add("Quarry");
-            map_List.Add("Rundown");
-            map_List.Add("Salvage");
-            map_List.Add("Scrapyard");
-            map_List.Add("Skidrow");
-            map_List.Add("Storm");
-            map_List.Add("Strike");
-            map_List.Add("Sub Base");
-            map_List.Add("Terminal");
-            map_List.Add("Trailer Park");
-            map_List.Add("Underpass");
-            map_List.Add("Vacant ");
+            List<String> map_List = new List<string>
+            {
+                "Afghan",
+                "Bailout",
+                "Carnival",
+                "Derail",
+                "Estate",
+                "Favela",
+                "Fuel",
+                "Highrise",
+                "Invasion",
+                "Karachi",
+                "Overgrown",
+                "Quarry",
+                "Rundown",
+                "Salvage",
+                "Scrapyard",
+                "Skidrow",
+                "Storm",
+                "Strike",
+                "Sub Base",
+                "Terminal",
+                "Trailer Park",
+                "Underpass",
+                "Vacant "
+            };
             return map_List;
         }
 

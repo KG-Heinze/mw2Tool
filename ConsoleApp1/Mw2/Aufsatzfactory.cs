@@ -8,7 +8,7 @@ namespace ConsoleApp1.Mw2
 {
     class Aufsatzfactory
     {
-        List<Aufsatz> Aufsätze= new List<Aufsatz>();
+        readonly List<Aufsatz> Aufsätze= new List<Aufsatz>();
 
         public Aufsatzfactory()
         {
@@ -48,13 +48,13 @@ namespace ConsoleApp1.Mw2
             return Aufsätze.Single(s => s.Name == name);
         }
 
-        public Aufsatz[] Get_Aufsatz_By_Name(String[] nameArray)
+        public List<Aufsatz> Get_Aufsatz_By_Name(String[] nameArray)
         {
-            Aufsatz[] output = new Aufsatz[nameArray.Length];
+            List<Aufsatz> output = new List<Aufsatz>();
 
-            for (int i = 0; i < nameArray.Length; i++)
+            for (int i = 0; i < nameArray.Count(); i++)
             {
-                output[i] = Get_Aufsatz_By_Name(nameArray[i]);
+                output.Add(Get_Aufsatz_By_Name(nameArray[i]));
             }
 
             return output;

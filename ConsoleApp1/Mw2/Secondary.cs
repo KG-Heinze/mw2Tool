@@ -13,7 +13,7 @@ namespace ConsoleApp1.Mw2
 
         }
 
-        public Secondary(String waffenkategorie, String name, Aufsatz[] aufsätze, String[] tarnung)
+        public Secondary(String waffenkategorie, String name, List<Aufsatz> aufsätze, String[] tarnung)
         {
             this.Waffenkategorie = waffenkategorie;
             this.Name = name;

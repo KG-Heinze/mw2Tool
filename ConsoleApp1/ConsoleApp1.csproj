@@ -134,7 +134,7 @@
     <Compile Include="Mw2\Sturmgewehre.cs" />
     <Compile Include="Mw2\Todesserie.cs" />
     <Compile Include="Mw2\Waffe.cs" />
-    <Compile Include="Mw2\Waffenfacory.cs" />
+    <Compile Include="Mw2\Waffenfactory.cs" />
     <Compile Include="Mw2\Werfer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

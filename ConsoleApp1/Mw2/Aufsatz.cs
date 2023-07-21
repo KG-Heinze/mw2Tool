@@ -16,10 +16,20 @@ namespace ConsoleApp1.Mw2
         {
 
         }
+
+        public Aufsatz(String name)
+        {
+            this.name = name;
+        }
         public Aufsatz(String name, String typ)
         {
             this.name = name;
             this.typ = typ;
+        }
+
+        public void RemoveAufsatz()
+        {
+
         }
 
         public String Name { get => name; set => name = value; }

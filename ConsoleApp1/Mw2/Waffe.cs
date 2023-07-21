@@ -13,7 +13,7 @@ namespace ConsoleApp1.Mw2
     {
         private String waffenkategorie = null;
         private String name = null;
-        private Aufsatz[] aufsätze = null;
+        private List<Aufsatz> aufsätze = new List<Aufsatz>();
         private String[] tarnung = null;
 
         public Waffe()
@@ -21,7 +21,7 @@ namespace ConsoleApp1.Mw2
 
         }
 
-        public Waffe( String waffenkategorie, String name, Aufsatz[] aufsätze, String[] tarnung) 
+        public Waffe( String waffenkategorie, String name, List<Aufsatz> aufsätze, String[] tarnung) 
         {
             this.Waffenkategorie = waffenkategorie;
             this.Name = name;
@@ -29,29 +29,29 @@ namespace ConsoleApp1.Mw2
             this.Tarnung = tarnung;
         }
 
-        public Waffe(String waffenkategorie, String name, Aufsatz[] aufsätze)
+        public Waffe(String waffenkategorie, String name, List<Aufsatz> aufsätze)
         {
             this.Waffenkategorie = waffenkategorie;
             this.Name = name;
             this.Aufsätze = aufsätze;
         }
 
-        public Aufsatz getRandomAufsatz()
+        public Aufsatz GetRandomAufsatz()
         {
             if (this.aufsätze != null)
             {
-                int size = this.aufsätze.Length;
+                int size = this.aufsätze.Count();
 
                 return this.aufsätze[StaticRandom.Instance.Next(0, size)]; 
             }
             return new Aufsatz();
         }
 
-        public Aufsatz getRandomAufsatz(Aufsatz aufsatz)
+        public Aufsatz GetRandomAufsatz(Aufsatz aufsatz)
         {
             if (this.aufsätze != null)
             {
-                int size = this.aufsätze.Length;
+                int size = this.aufsätze.Count();
                 if (aufsatz.Typ != "normal")
                 {
                     Aufsatz[] test = aufsätze.Where(s => s.Typ != aufsatz.Typ).ToArray();
@@ -63,11 +63,27 @@ namespace ConsoleApp1.Mw2
             return new Aufsatz();
         }
 
+        public List<Waffe> RemoveAufsätze(Aufsatz aufsatz, List<Waffe> waffenliste)
+        {
+            foreach (var waffe in waffenliste)
+            {
+                if (waffe.aufsätze.Contains(aufsatz))
+                {
+                    waffe.aufsätze = waffe.aufsätze.Where(x => x.Name != aufsatz.Name).ToList();
+                }
+            }
+            return waffenliste;
+        }
 
+        public Waffe RemoveAufsatz(Aufsatz aufsatz, Waffe waffe)
+        {
+            waffe.aufsätze.Where(x => x.Name != aufsatz.Name).ToList();
+            return waffe;
+        }
 
         public string Waffenkategorie { get => waffenkategorie; set => waffenkategorie = value; }
         public string Name { get => name; set => name = value; }
-        public Aufsatz[] Aufsätze { get => aufsätze; set => aufsätze = value; }
+        public List<Aufsatz> Aufsätze { get => aufsätze; set => aufsätze = value; }
         public string[] Tarnung { get => tarnung; set => tarnung = value; }
     }
 }

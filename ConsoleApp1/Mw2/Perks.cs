@@ -14,15 +14,25 @@ namespace ConsoleApp1.Mw2
 
         public Perks()
         {
-            String[] perk1_list = { "Marathon Pro", "Fingerfertigkeit Pro", "Plünderer Pro", "Aufsatz Pro", "Ein-Mann-Armee Pro" };
-            String[] perk2_list = { "Feuerkraft Pro", "Leichtgewicht Pro", "Hardliner Pro", 
-                //"Eiskalt Pro",
+            String[] perk1_list = { 
+                "Marathon Pro",
+                "Fingerfertigkeit Pro",
+                "Plünderer Pro",
+                "Aufsatz Pro",
+                "Ein-Mann-Armee Pro" };
+
+            String[] perk2_list = { 
+                "Feuerkraft Pro", 
+                "Leichtgewicht Pro", 
+                "Hardliner Pro",
+                "Eiskalt Pro",
                 "Direkte Gefahr Pro" };
+
             String[] perk3_list = { 
                 "Kommando Pro",
                 "Ruhige Hand Pro",
-                //"Störer Pro",
-                //"Ninja Pro",
+                "Störer Pro",
+                "Ninja Pro",
                 "Lagebericht Pro",
                 "Eliminator Pro" };
 

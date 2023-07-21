@@ -13,14 +13,14 @@ namespace ConsoleApp1.Mw2
 
         }
 
-        public Handfeuerwaffe(String name, Aufsatz[] aufsätze, String[] tarnung)
+        public Handfeuerwaffe(String name, List<Aufsatz> aufsätze, String[] tarnung)
         {
             this.Name = name;
             this.Aufsätze = aufsätze;
             this.Tarnung = tarnung;
         }
 
-        public Handfeuerwaffe(String name, Aufsatz[] aufsätze)
+        public Handfeuerwaffe(String name, List<Aufsatz> aufsätze)
         {
             this.Name = name;
             this.Aufsätze = aufsätze;

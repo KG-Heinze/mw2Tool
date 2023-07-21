@@ -8,7 +8,7 @@ namespace ConsoleApp1.Mw2
 {
     public static class Insult
     {
-        public static String get_random_Insult()
+        public static String Get_random_Insult()
         {
             String[] insults = {
     "A small dick's like a disability, so I won't make fun of you.",
@@ -333,7 +333,10 @@ namespace ConsoleApp1.Mw2
     "When you were born, the doctor came out to the waiting room and said to your dad, 'I\'m very sorry. We did everything we could. But he pulled through.'",
     "You stare at frozen juice cans because they say, 'concentrate'.",
             };
-            return "";
+
+            int size = insults.Count();
+
+            return insults[StaticRandom.Instance.Next(0, size - 1)]; ;
         }
     }
 }
